@@ -1,5 +1,6 @@
 package com.capgemini.springboot.jpa.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,13 +16,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name= "customer_details")
-public class CustomerDetails {
+public class CustomerDetails implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "customer_id")
@@ -72,8 +73,6 @@ public class CustomerDetails {
 	private String bankBranch;
 	
 	@Column(name= "account_no")
-	//@NotNull(message = "please enter account number")
-	@Pattern(regexp = "[0-9]{16}", message = "please enter a valid 16 digits account number ")
 	private String accountNumber;
 	
 	@Column(name= "opening_balance")
@@ -81,12 +80,9 @@ public class CustomerDetails {
 	private String openingBalance;
 	
 	@Column(name= "pin")
-	//@JsonProperty(access=Access.WRITE_ONLY)
-	//@Pattern(regexp = "[0-9]{4}", message = "please enter 4 digits only")
 	private String pin;
 	
 	@Column(name= "password",unique= true)
-	//@JsonProperty(access=Access.WRITE_ONLY)
 	@Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "password should consists of atleast 8 characters with one uppercase,one lowercase and one special character")
 	private String password;
 	
